@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
+import com.forohub.api.domain.topico.Topico;
+import com.forohub.api.domain.usuario.Usuario;
+
 /**
 * Representa una respuesta a un tópico dentro del sistema.
 * Contiene el mensaje, el tópico al que pertenece, la fecha de creación,

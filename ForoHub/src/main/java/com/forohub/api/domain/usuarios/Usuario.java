@@ -13,10 +13,13 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- *
- * @author usuario
+ * Representa un usuario del sistema.
+ * Implementa la interfaz UserDetails de Spring Security para integrarse con el sistema de autenticación.
+ * 
+ * Cada usuario puede tener múltiples perfiles asociados.
+ * 
+ * @author Luciano Emmanuel Gatti Flekenstein
  */
-
 @Table(name = "usuarios")
 @Entity(name = "Usuario")
 @Getter
@@ -28,24 +31,31 @@ public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nombre;
-    private String login;
-    private String clave;
+
+    private String correoElectronico;
+
+    private String contrasena;
+
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Perfil> perfiles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return perfiles.stream()
+                .map(perfil -> new SimpleGrantedAuthority(perfil.getNombre()))
+                .toList();
     }
 
     @Override
     public String getPassword() {
-        return clave;
+        return contrasena;
     }
 
     @Override
     public String getUsername() {
-        return login;
+        return correoElectronico;
     }
 
     @Override
