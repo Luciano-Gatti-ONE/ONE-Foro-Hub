@@ -1,4 +1,4 @@
-package med.voll.api.domain.usuarios;
+package com.forohub.api.domain.usuarios;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,6 +11,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+
+/**
+ *
+ * @author usuario
+ */
 
 @Table(name = "usuarios")
 @Entity(name = "Usuario")
