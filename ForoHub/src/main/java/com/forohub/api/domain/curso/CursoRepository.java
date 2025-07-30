@@ -8,5 +8,4 @@ import com.forohub.api.domain.curso.Curso;
  * @author usuario
  */
 public interface CursoRepository extends JpaRepository<Curso, Long> {
-
 }
