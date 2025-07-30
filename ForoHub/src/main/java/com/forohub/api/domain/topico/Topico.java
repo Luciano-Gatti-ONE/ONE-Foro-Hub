@@ -29,7 +29,6 @@ public class Topico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String titulo;
     private String mensaje;
     private LocalDateTime fechaDeCreacion;
@@ -47,4 +46,13 @@ public class Topico {
 
     @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Respuesta> respuestas;
+    
+    public Topico(String titulo, String mensaje, Usuario autor, Curso curso) {
+        this.titulo = titulo;
+        this.mensaje = mensaje;
+        this.fechaCreacion = LocalDateTime.now();
+        this.status = StatusTopico.NO_RESPONDIDO;
+        this.autor = autor;
+        this.curso = curso;
+    }
 }
