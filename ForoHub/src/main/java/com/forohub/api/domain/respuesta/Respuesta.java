@@ -5,8 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
+import java.time.LocalDateTime;
+
 import com.forohub.api.domain.topico.Topico;
-import com.forohub.api.domain.usuario.Usuario;
+import com.forohub.api.domain.usuarios.Usuario;
 
 /**
 * Representa una respuesta a un tópico dentro del sistema.
