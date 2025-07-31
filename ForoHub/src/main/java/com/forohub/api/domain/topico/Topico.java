@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.forohub.api.domain.usuario.Usuario;
+import com.forohub.api.domain.usuarios.Usuario;
 import com.forohub.api.domain.curso.Curso;
 import com.forohub.api.domain.respuesta.Respuesta;
 
@@ -50,8 +50,8 @@ public class Topico {
     public Topico(String titulo, String mensaje, Usuario autor, Curso curso) {
         this.titulo = titulo;
         this.mensaje = mensaje;
-        this.fechaCreacion = LocalDateTime.now();
-        this.status = StatusTopico.NO_RESPONDIDO;
+        this.fechaDeCreacion = LocalDateTime.now();
+        this.status = Status.SIN_RESPUESTAS;
         this.autor = autor;
         this.curso = curso;
     }
