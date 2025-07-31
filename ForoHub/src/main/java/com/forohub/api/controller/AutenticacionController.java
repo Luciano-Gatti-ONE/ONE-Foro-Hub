@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 @RestController
 @RequestMapping("/login")
 public class AutenticacionController {
@@ -27,6 +29,8 @@ public class AutenticacionController {
 
     @PostMapping
     public ResponseEntity autenticarUsuario(@RequestBody @Valid DatosAutenticacionUsuario datosAutenticacionUsuario) {
+        //BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        //System.out.println(encoder.encode("12345678"));
         Authentication authToken = new UsernamePasswordAuthenticationToken(datosAutenticacionUsuario.login(),
                 datosAutenticacionUsuario.clave());
         var usuarioAutenticado = authenticationManager.authenticate(authToken);
