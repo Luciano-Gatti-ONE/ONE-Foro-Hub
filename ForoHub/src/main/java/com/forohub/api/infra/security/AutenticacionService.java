@@ -1,6 +1,6 @@
-package med.voll.api.infra.security;
+package com.forohub.api.infra.security;
 
-import med.voll.api.domain.usuarios.UsuarioRepository;
+import com.forohub.api.domain.usuarios.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,7 +14,7 @@ public class AutenticacionService implements UserDetailsService {
     private UsuarioRepository usuarioRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return usuarioRepository.findByLogin(username);
+    public UserDetails loadUserByUsername(String correo) throws UsernameNotFoundException {
+        return usuarioRepository.findByCorreoElectronico(correo);
     }
 }
