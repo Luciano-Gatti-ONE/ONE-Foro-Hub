@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+
+import com.forohub.api.domain.perfil.Perfil;
 
 /**
  * Representa un usuario del sistema.
@@ -23,6 +26,7 @@ import java.util.List;
 @Table(name = "usuarios")
 @Entity(name = "Usuario")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -38,14 +42,17 @@ public class Usuario implements UserDetails {
 
     private String contrasena;
 
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Perfil> perfiles;
+    
+    public void setPerfiles(List<Perfil> perfiles) {
+        perfiles.forEach(p -> p.setUsuario(this));
+        this.perfiles = perfiles;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return perfiles.stream()
-                .map(perfil -> new SimpleGrantedAuthority(perfil.getNombre()))
-                .toList();
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
