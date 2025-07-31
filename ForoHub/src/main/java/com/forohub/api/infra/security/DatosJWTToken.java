@@ -1,4 +1,4 @@
-package med.voll.api.infra.security;
+package com.forohub.api.infra.security;
 
 public record DatosJWTToken(String jwTtoken) {
 }
