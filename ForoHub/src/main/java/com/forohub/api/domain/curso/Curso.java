@@ -27,4 +27,9 @@ public class Curso {
 
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
+    
+    public Curso(DatosCreacionCurso datos) {
+        this.nombre = datos.nombre();
+        this.categoria = Categoria.valueOf(datos.categoria().toUpperCase()); // Suponiendo que sea un enum
+    }
 }
