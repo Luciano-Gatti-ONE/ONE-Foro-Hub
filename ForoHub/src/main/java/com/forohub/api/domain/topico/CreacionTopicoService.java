@@ -1,11 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/springframework/Service.java to edit this template
- */
-
 package com.forohub.api.domain.topico;
 
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.forohub.api.domain.curso.CursoRepository;
+import com.forohub.api.domain.usuarios.UsuarioRepository;
+import com.forohub.api.domain.topico.TopicoRepository;
+import com.forohub.api.domain.topico.DatosRespuestaTopico;
+import com.forohub.api.domain.ValidacionException;
 
 /**
  *
@@ -27,16 +28,21 @@ public class CreacionTopicoService {
     private List<ValidadorDeConsultas> validadores;
     */
     
-    public DatosDetalleTopico crearTopico(DatosCreacionTopico datos){
+    public DatosRespuestaTopico crearTopico(DatosCreacionTopico datos){
+        //validaciones
+        //validadores.forEach(v -> v.validar(datos));
 
-        if(!usuarioRepository.existsById(datos.idAutor())){
-            throw new ValidacionException("No existe un usuario con el id informado");
-        }
-
-        if(!cursoRepository.existsById(datos.idCurso())){
-            throw new ValidacionException("No existe un curso con el id informado");
-        }
-
+        var autor = usuarioRepository.findById(datos.idAutor())
+                 .orElseThrow(() -> new ValidacionException("No existe un usuario con el id informado"));
+        var curso = cursoRepository.findById(datos.idCurso())
+                 .orElseThrow(() -> new ValidacionException("No existe un usuario con el id informado"));
+        var topico = new Topico(datos.titulo(), datos.mensaje(), autor, curso);
+        topicoRepository.save(topico);
+        
+        return new DatosRespuestaTopico(topico);
+    }
+    
+    public DatosRespuestaTopico crearTopico(DatosCreacionTopico datos){
         //validaciones
         //validadores.forEach(v -> v.validar(datos));
 
@@ -44,6 +50,6 @@ public class CreacionTopicoService {
         var curso = cursoRepository.findById(datos.idCurso()).get();
         var topico = new Topico(datos.titulo(), datos.mensaje(), autor, curso);
         topicoRepository.save(topico);
-        return new DatosDetalleTopico(topico);
+        return new DatosRespuestaTopico(topico);
     }
 }
