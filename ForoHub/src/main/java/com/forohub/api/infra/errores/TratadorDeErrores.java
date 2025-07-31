@@ -1,7 +1,7 @@
-package med.voll.api.infra.errores;
+package com.forohub.api.infra.errores;
 
 import jakarta.persistence.EntityNotFoundException;
-import med.voll.api.domain.ValidacionException;
+import com.forohub.api.domain.ValidacionException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
