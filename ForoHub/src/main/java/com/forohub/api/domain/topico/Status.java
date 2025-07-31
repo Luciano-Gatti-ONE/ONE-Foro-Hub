@@ -8,7 +8,7 @@ package com.forohub.api.domain.topico;
  */
 
 public enum Status {
-    SIN_RESPUESTA("SIN RESPUESTA"),
+    SIN_RESPUESTAS("SIN RESPUESTA"),
     EN_CURSO("EN CURSO"),
     RESUELTO("RESUELTO");
 
