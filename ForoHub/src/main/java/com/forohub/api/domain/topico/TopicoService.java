@@ -71,18 +71,13 @@ public class TopicoService {
         var topico = topicoRepository.getReferenceById(id);
         topico.desactivarTopico();
     }
-        
-    /*
+    /*    
     public DatosRespuestaTopico topicosPorFecha(){
-        if(op == 1){
-            var topicos = topicoRepository.findAll();
-            var respuesta = topicos.stream()
-                    .map(DatosRespuestaTopico::new)
-                    .toList();
-            
-        }else{
-            
-        }
+        var topicos = topicoRepository.findAll();
+        var respuesta = topicos.stream()
+                .map(DatosRespuestaTopico::new)
+                .toList();
+
         return new DatosRespuestaTopico(topico);
     }
     
