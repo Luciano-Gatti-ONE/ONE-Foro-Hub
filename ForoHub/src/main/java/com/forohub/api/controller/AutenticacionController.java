@@ -29,8 +29,8 @@ public class AutenticacionController {
 
     @PostMapping
     public ResponseEntity autenticarUsuario(@RequestBody @Valid DatosAutenticacionUsuario datosAutenticacionUsuario) {
-        //BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        //System.out.println(encoder.encode("12345678"));
+    //    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    //    System.out.println(encoder.encode("12345678"));
         Authentication authToken = new UsernamePasswordAuthenticationToken(datosAutenticacionUsuario.login(),
                 datosAutenticacionUsuario.clave());
         var usuarioAutenticado = authenticationManager.authenticate(authToken);
