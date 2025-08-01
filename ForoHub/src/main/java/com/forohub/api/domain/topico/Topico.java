@@ -2,6 +2,7 @@ package com.forohub.api.domain.topico;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
@@ -22,6 +23,7 @@ import com.forohub.api.domain.respuesta.Respuesta;
 @Entity(name = "Topico")
 @Table(name = "topicos")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Topico {
@@ -32,6 +34,7 @@ public class Topico {
     private String titulo;
     private String mensaje;
     private LocalDateTime fechaDeCreacion;
+    private Boolean activo;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -54,5 +57,9 @@ public class Topico {
         this.status = Status.SIN_RESPUESTAS;
         this.autor = autor;
         this.curso = curso;
+    }
+    
+    public void desactivarTopico() {
+        this.activo = false;
     }
 }

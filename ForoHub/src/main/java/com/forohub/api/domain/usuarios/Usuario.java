@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.forohub.api.domain.perfil.Perfil;
+import com.forohub.api.domain.topico.Topico;
 
 /**
  * Representa un usuario del sistema.
@@ -45,10 +46,8 @@ public class Usuario implements UserDetails {
     @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Perfil> perfiles;
     
-    public void setPerfiles(List<Perfil> perfiles) {
-        perfiles.forEach(p -> p.setUsuario(this));
-        this.perfiles = perfiles;
-    }
+    @OneToMany(mappedBy = "autor", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Topico> topicos;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -5,6 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
+import com.forohub.api.domain.topico.Topico;
+
+import java.util.List;
+
 /**
 * Representa un curso dentro del sistema.
 * Cada curso tiene una única categoría, representada como un valor enum.
@@ -27,6 +31,9 @@ public class Curso {
 
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
+    
+    @OneToMany(mappedBy = "curso", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Topico> topicos;
     
     public Curso(DatosCreacionCurso datos) {
         this.nombre = datos.nombre();
