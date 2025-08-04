@@ -42,7 +42,16 @@ public class Usuario implements UserDetails {
     private String correoElectronico;
 
     private String contrasena;
-
+    
+    private Boolean activo;
+        
+    public Usuario(DatosRegistroUsuario datosRegistroUsuario) {
+        this.activo = true;
+        this.nombre = datosRegistroMedico.nombre();
+        this.correoElectronico = datosRegistroMedico.correoElectronico();
+        this.contrasena = datosRegistroMedico.contrasena();
+    }
+    
     @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Perfil> perfiles;
     
@@ -82,5 +91,9 @@ public class Usuario implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+    
+    public void desactivarUsuario() {
+        this.activo = false;
     }
 }
