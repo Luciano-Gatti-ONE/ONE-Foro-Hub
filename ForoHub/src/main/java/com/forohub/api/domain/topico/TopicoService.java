@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
  *
  * @author usuario
  */
+
 @Service
 public class TopicoService {
     @Autowired
@@ -31,7 +32,11 @@ public class TopicoService {
     @Autowired
     private CursoRepository cursoRepository;
     
+    @Autowire
+    private List<ValidadorDeTopicos> validaciones;
+    
     public DatosRespuestaTopico crearTopico(DatosCreacionTopico datos){
+        validadores.forEach(v -> v.validarCreacion(datos));
         var autor = usuarioRepository.findById(datos.idAutor())
                  .orElseThrow(() -> new ValidacionException("No existe un usuario con el id informado"));
         var curso = cursoRepository.findById(datos.idCurso())
@@ -41,13 +46,24 @@ public class TopicoService {
         
         return new DatosRespuestaTopico(topico);
     }
+    /**  
+    *   SE UTILIZARA PAGE PARA LISTAR TODOS LOS TOPICOS SIN EMBARGO ESTE ES EL METODO PARA 
+    *   LISTAR TODOS LOS TOPICOS SIN PAGABLE
+    *
+    *    public List<DatosMostrarTopico> listarTodosLosTopicos(){
+    *       var topicos = topicoRepository.findAll();
+    *        var respuesta = topicos.stream()
+    *                .map(DatosMostrarTopico::new)
+    *                .toList();
+    *        return respuesta;
+    *    }
+    */
     
-    public List<DatosMostrarTopico> listarTodosLosTopicos(){
-        var topicos = topicoRepository.findAll();
-        var respuesta = topicos.stream()
-                .map(DatosMostrarTopico::new)
-                .toList();
-        return respuesta;
+    public <Page<DatosMostrarTopico>> listarTodosLosTopicos(int page, int size, String sort){
+        Pageable paginacion = PageRequest.of(page, size, Sort.by(sort));
+        var topicos = topicoRepository.findAll(paginacion)
+                .map(DatosMostrarTopico::new);
+        return topicos;
     }
     
     public DatosMostrarTopico mostrarTopicoPorId(Long id){
@@ -58,33 +74,35 @@ public class TopicoService {
     }
     
     public DatosRespuestaTopicoActualizado actualizarTopico(DatosActualizarTopico datos){
-        //validaciones
-        //validadores.forEach(v -> v.validar(datos));
+        validadores.forEach(v -> v.validarActualizacion(datos));
         var topico = topicoRepository.findById(datos.id())
             .orElseThrow(() -> new ValidacionException("Tópico no encontrado con id: " + datos.id()));
         var avisos = actualizarDatos(datos, topico);
         topicoRepository.save(topico); 
         return new DatosRespuestaTopicoActualizado(topico, avisos);
     }
-    
-    public void desactivarTopico(Long id){
-        var topico = topicoRepository.getReferenceById(id);
-        topico.desactivarTopico();
-    }
-    /*    
-    public DatosRespuestaTopico topicosPorFecha(){
-        var topicos = topicoRepository.findAll();
-        var respuesta = topicos.stream()
-                .map(DatosRespuestaTopico::new)
-                .toList();
-
-        return new DatosRespuestaTopico(topico);
-    }
-    
-    public DatosRespuestaTopico topicosPorCursoyAño(){
-        return new DatosRespuestaTopico(topico);
-    }
+    /**
+    * METODO UTILIZADO PARA LA ELIMINACION LOGICA DE UN TOPICO
+    * public void desactivarTopico(Long id){
+    *       var topico = topicoRepository.getReferenceById(id);      
+    *       topico.desactivarTopico();    
+    * }
     */
+    
+    public void eliminarTopico(Long id){
+        topicoRepository.deleteById(id);       
+    }
+    
+    public DatosRespuestaTopico topicosPorFecha(){
+        var topicos = topicoRepository.findTop10ByOrderByFechaDeCreacionAsc();
+        return new DatosRespuestaTopico(topicos);
+    }
+    
+
+    public List<DatosRespuestaTopico> topicosPorCursoyAño(DatosBusquedaTopico datosBusquedaTopico){
+        var respuesta = topicoRepository.buscarTopicosPorCursoYAño(datosBusquedaTopico.nombreCurso(), datosBusquedaTopico.añoTopico());
+        return respuesta;
+    }
     
     public Map<String, String> actualizarDatos(DatosActualizarTopico datosActualizarTopico, Topico topico) {
         Map<String, String> avisos = new HashMap<>();

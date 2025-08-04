@@ -32,5 +32,4 @@ public class TratadorDeErrores {
             this(error.getField(), error.getDefaultMessage());
         }
     }
-
 }

@@ -46,8 +46,21 @@ public class TopicoController {
     }
     
     @GetMapping
-    public ResponseEntity<List<DatosMostrarTopico>> listadoTopicos() {
-        return ResponseEntity.ok(topicoService.listarTodosLosTopicos());
+    public ResponseEntity<Page<DatosMostrarTopico>> listadoTopicos( 
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "nombre") String sort) {
+        return ResponseEntity.ok(topicoService.listarTodosLosTopicos(page, size, sort));
+    }
+    
+    @GetMapping("/por-fecha")
+    public ResponseEntity<List<DatosMostrarTopico>> listadoTopicosPorFecha() {
+        return ResponseEntity.ok(topicoService.topicosPorFecha());
+    }
+    
+    @GetMapping("/por-curso-y-año")
+    public ResponseEntity<List<DatosMostrarTopico>> listadoTopicosPorCursoYAño (@RequestBody @Valid DatosBusquedaTopico datosBusquedaTopico) {
+        return ResponseEntity.ok(topicoService.topicosPorCursoyAño(datosBusquedaTopico));
     }
     
     @GetMapping("/{id}")
@@ -66,7 +79,7 @@ public class TopicoController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity eliminarTopico(@PathVariable Long id) {
-        topicoService.desactivarTopico(id);
+        topicoService.eliminarTopico(id);
         return ResponseEntity.noContent().build();
     }
 }

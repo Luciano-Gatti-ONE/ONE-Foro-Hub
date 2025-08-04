@@ -34,7 +34,9 @@ public class Topico {
     private String titulo;
     private String mensaje;
     private LocalDateTime fechaDeCreacion;
-    private Boolean activo;
+    
+    //SE UTILIZA EN EL CASO DE ELIMINACION LOGICA
+    //private Boolean activo;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -59,7 +61,11 @@ public class Topico {
         this.curso = curso;
     }
     
-    public void desactivarTopico() {
-        this.activo = false;
-    }
+    /**
+    * SE UTILIZA EN EL CASO DE ELIMINACION LOGICA
+    * public void desactivarTopico() {   
+    *       this.activo = false;
+    * }
+    */
+    
 }
