@@ -38,8 +38,8 @@ public class RespuestaController {
     
     @PutMapping
     @Transactional
-    public ResponseEntity actualizarTopico(@RequestBody @Valid DatosActualizarTopico datosActualizarTopico) {
-        var respuesta = respuestaService.actualizarTopico(datosActualizarTopico);
+    public ResponseEntity actualizarRespuesta(@RequestBody @Valid DatosActualizarRespuesta datosActualizarRespuesta) {
+        var respuesta = respuestaService.actualizarRespuesta(datosActualizarRespuesta);
         return ResponseEntity.ok(respuesta);
     }
 

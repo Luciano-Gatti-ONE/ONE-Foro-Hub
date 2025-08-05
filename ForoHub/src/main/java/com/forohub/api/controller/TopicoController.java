@@ -2,6 +2,7 @@ package com.forohub.api.controller;
 
 import com.forohub.api.domain.topico.DatosCreacionTopico;
 import com.forohub.api.domain.topico.DatosRespuestaTopico;
+import com.forohub.api.domain.topico.DatosRespuestaTopicoActualizado;
 import com.forohub.api.domain.topico.DatosMostrarTopico;
 import com.forohub.api.domain.topico.DatosActualizarTopico;
 import com.forohub.api.domain.topico.DatosBusquedaTopico;
