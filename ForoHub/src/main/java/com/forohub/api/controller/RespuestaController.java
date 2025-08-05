@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/springframework/RestController.java to edit this template
- */
-
 package com.forohub.api.controller;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -12,8 +7,47 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  * @author usuario
  */
-@RestController
-@RequestMapping("/url")
-public class RespuestaController {
 
+@RestController
+@RequestMapping("/respuesta")
+public class RespuestaController {
+    
+    @Autowired
+    private RespuestaService respuestaService;
+    
+    @PostMapping
+    @Transactional
+    public ResponseEntity<DatosRespuestaTopico> crearTopico(@RequestBody @Valid DatosCreacionRespuesta datosCreacionRespuesta,
+                                                                UriComponentsBuilder uriComponentsBuilder) {
+
+        var detalleCreacion = respuestaService.crearRespuesta(datosCreacionRespuesta);
+
+        URI url = uriComponentsBuilder.path("/respuesta/{id}").buildAndExpand(detalleCreacion.id()).toUri();
+        return ResponseEntity.created(url).body(detalleCreacion);
+    }
+    
+    @GetMapping
+    public ResponseEntity<List<DatosMostrarRespuestas>> listadoRespuestasPorTopico(@PathVariable Long id) {
+        return ResponseEntity.ok(respuestaService.listarRespuestasPorTopico());
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<DatosMostrarRespuestas> respuestaPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(respuestaService.mostrarRespuestaPorId(id));
+    }
+    
+    @PutMapping
+    @Transactional
+    public ResponseEntity actualizarTopico(@RequestBody @Valid DatosActualizarTopico datosActualizarTopico) {
+        var respuesta = respuestaService.actualizarTopico(datosActualizarTopico);
+        return ResponseEntity.ok(respuesta);
+    }
+
+    // DELETE LOGICO
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity eliminarTopico(@PathVariable Long id) {
+        topicoService.eliminarTopico(id);
+        return ResponseEntity.noContent().build();
+    }
 }

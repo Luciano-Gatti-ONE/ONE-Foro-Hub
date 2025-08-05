@@ -79,7 +79,7 @@ public class TopicoController {
     
     @PutMapping
     @Transactional
-    public ResponseEntity actualizarTopico(@RequestBody @Valid DatosActualizarTopico datosActualizarTopico) {
+    public ResponseEntity<DatosRespuestaTopicoActualizado> actualizarTopico(@RequestBody @Valid DatosActualizarTopico datosActualizarTopico) {
         var respuesta = topicoService.actualizarTopico(datosActualizarTopico);
         return ResponseEntity.ok(respuesta);
     }
