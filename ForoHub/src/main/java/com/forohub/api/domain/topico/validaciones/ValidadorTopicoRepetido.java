@@ -1,8 +1,16 @@
 package com.forohub.api.domain.topico.validaciones;
 
+import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.forohub.api.domain.topico.DatosCreacionTopico;
+import com.forohub.api.domain.topico.DatosActualizarTopico;
+import com.forohub.api.domain.topico.TopicoRepository;
+import com.forohub.api.domain.ValidacionException;
+
 /**
  *
- * @author lucia
+ * @author Luciano Emmanuel Gatti Flekenstein
  */
 
 @Component

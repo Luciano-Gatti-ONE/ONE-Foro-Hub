@@ -1,12 +1,29 @@
 package com.forohub.api.domain.usuarios;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+
+import com.forohub.api.domain.usuarios.DatosRegistrarUsuario;
+import com.forohub.api.domain.usuarios.DatosActualizarUsuario;
+import com.forohub.api.domain.usuarios.DatosRespuestaUsuario;
+import com.forohub.api.domain.usuarios.DatosRespuestaUsuarioActualizado;
+import com.forohub.api.domain.usuarios.DatosMostrarUsuario;
+
+import com.forohub.api.domain.usuarios.Usuario;
+import com.forohub.api.domain.usuarios.UsuarioRepository;
+
+import com.forohub.api.domain.ValidacionException;
 
 /**
  *
  * @author usuario
  */
+
 @Service
 public class UsuarioService {
     
@@ -36,19 +53,17 @@ public class UsuarioService {
     }
     
     public DatosMostrarUsuario mostrarUsuarioPorId(Long id){
-        var usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new ValidacionException("No existe un usuario con el id informado"));
         if(!usuarioRepository.findByActivoTrueAndId(id).isPresent()){
-            throw new ValidacionException("El usuario no se encuentra activo"));
+            throw new ValidacionException("El usuario no existe o no se encuentra activo");
         }
-        
+        var usuario = usuarioRepository.getReferenceById(id);
         var respuesta = new DatosMostrarUsuario(usuario);
         return respuesta;
     }
     
     public DatosRespuestaUsuarioActualizado actualizarUsuario(DatosActualizarUsuario datos){
         var usuario = usuarioRepository.findById(datos.id())
-            .orElseThrow(() -> new ValidacionException("No existe un usuario con el id informado");
+            .orElseThrow(() -> new ValidacionException("No existe un usuario con el id informado"));
         var avisos = actualizarDatos(datos, usuario);
         usuarioRepository.save(usuario); 
         return new DatosRespuestaUsuarioActualizado(usuario, avisos);
@@ -59,7 +74,7 @@ public class UsuarioService {
         usuario.desactivarUsuario();
     }
     
-    public void actualizarDatos(DatosActualizarUsuario datos, Usuario usuario){
+    public Map<String, String> actualizarDatos(DatosActualizarUsuario datos, Usuario usuario){
         Map<String, String> avisos = new HashMap<>();
 
         if (datos.nombre() != null && !datos.nombre().isBlank()) {
@@ -75,9 +90,16 @@ public class UsuarioService {
         }
         
         if (datos.contrasena() != null && !datos.contrasena().isBlank()) {
-            usuario.setContrasena(datos.contrasena());
+            if (datos.contrasena().length() >= 8
+                && datos.contrasena().matches("^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]+$")) {
+                usuario.setContrasena(passwordEncoder.encode(datos.contrasena()));
+            } else {
+                avisos.put("Contraseña", "La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial.");
+            }
         } else {
             avisos.put("Contraseña", "La contraseña no fue actualizada porque está vacía o en blanco.");
         }
+        
+        return avisos;
     }
 }

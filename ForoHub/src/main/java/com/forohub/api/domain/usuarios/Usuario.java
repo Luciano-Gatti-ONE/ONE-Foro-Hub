@@ -15,6 +15,7 @@ import java.util.List;
 
 import com.forohub.api.domain.perfil.Perfil;
 import com.forohub.api.domain.topico.Topico;
+import com.forohub.api.domain.usuarios.DatosRegistrarUsuario;
 
 /**
  * Representa un usuario del sistema.
@@ -45,13 +46,13 @@ public class Usuario implements UserDetails {
     
     private Boolean activo;
         
-    public Usuario(DatosRegistroUsuario datosRegistroUsuario) {
+    public Usuario(String nombre, String correoElectronico, String contrasena) {
         this.activo = true;
-        this.nombre = datosRegistroMedico.nombre();
-        this.correoElectronico = datosRegistroMedico.correoElectronico();
-        this.contrasena = datosRegistroMedico.contrasena();
+        this.nombre = nombre;
+        this.correoElectronico = correoElectronico;
+        this.contrasena = contrasena;
     }
-    
+
     @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Perfil> perfiles;
     

@@ -4,24 +4,33 @@ import com.forohub.api.domain.topico.DatosCreacionTopico;
 import com.forohub.api.domain.topico.DatosRespuestaTopico;
 import com.forohub.api.domain.topico.DatosMostrarTopico;
 import com.forohub.api.domain.topico.DatosActualizarTopico;
+import com.forohub.api.domain.topico.DatosBusquedaTopico;
 import com.forohub.api.domain.topico.TopicoService;
+
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.util.UriComponentsBuilder;
-import java.net.URI;
 
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
 import java.util.List;
+
+import org.springframework.data.domain.Page;
 
 /**
  *
@@ -54,12 +63,12 @@ public class TopicoController {
     }
     
     @GetMapping("/por-fecha")
-    public ResponseEntity<List<DatosMostrarTopico>> listadoTopicosPorFecha() {
+    public ResponseEntity<List<DatosRespuestaTopico>> listadoTopicosPorFecha() {
         return ResponseEntity.ok(topicoService.topicosPorFecha());
     }
     
     @GetMapping("/por-curso-y-año")
-    public ResponseEntity<List<DatosMostrarTopico>> listadoTopicosPorCursoYAño (@RequestBody @Valid DatosBusquedaTopico datosBusquedaTopico) {
+    public ResponseEntity<List<DatosRespuestaTopico>> listadoTopicosPorCursoYAño (@RequestBody @Valid DatosBusquedaTopico datosBusquedaTopico) {
         return ResponseEntity.ok(topicoService.topicosPorCursoyAño(datosBusquedaTopico));
     }
     

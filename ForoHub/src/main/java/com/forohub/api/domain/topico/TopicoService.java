@@ -2,6 +2,11 @@ package com.forohub.api.domain.topico;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+
 import com.forohub.api.domain.curso.CursoRepository;
 import com.forohub.api.domain.usuarios.UsuarioRepository;
 import com.forohub.api.domain.topico.TopicoRepository;
@@ -10,11 +15,14 @@ import com.forohub.api.domain.topico.DatosRespuestaTopicoActualizado;
 import com.forohub.api.domain.topico.DatosActualizarTopico;
 import com.forohub.api.domain.respuesta.Respuesta;
 import com.forohub.api.domain.ValidacionException;
+import com.forohub.api.domain.topico.validaciones.ValidadorDeTopicos;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
+
 
 /**
  *
@@ -32,11 +40,11 @@ public class TopicoService {
     @Autowired
     private CursoRepository cursoRepository;
     
-    @Autowire
+    @Autowired
     private List<ValidadorDeTopicos> validaciones;
     
     public DatosRespuestaTopico crearTopico(DatosCreacionTopico datos){
-        validadores.forEach(v -> v.validarCreacion(datos));
+        validaciones.forEach(v -> v.validarCreacion(datos));
         var autor = usuarioRepository.findById(datos.idAutor())
                  .orElseThrow(() -> new ValidacionException("No existe un usuario con el id informado"));
         var curso = cursoRepository.findById(datos.idCurso())
@@ -46,20 +54,8 @@ public class TopicoService {
         
         return new DatosRespuestaTopico(topico);
     }
-    /**  
-    *   SE UTILIZARA PAGE PARA LISTAR TODOS LOS TOPICOS SIN EMBARGO ESTE ES EL METODO PARA 
-    *   LISTAR TODOS LOS TOPICOS SIN PAGABLE
-    *
-    *    public List<DatosMostrarTopico> listarTodosLosTopicos(){
-    *       var topicos = topicoRepository.findAll();
-    *        var respuesta = topicos.stream()
-    *                .map(DatosMostrarTopico::new)
-    *                .toList();
-    *        return respuesta;
-    *    }
-    */
     
-    public <Page<DatosMostrarTopico>> listarTodosLosTopicos(int page, int size, String sort){
+    public Page<DatosMostrarTopico> listarTodosLosTopicos(int page, int size, String sort){
         Pageable paginacion = PageRequest.of(page, size, Sort.by(sort));
         var topicos = topicoRepository.findAll(paginacion)
                 .map(DatosMostrarTopico::new);
@@ -74,33 +70,35 @@ public class TopicoService {
     }
     
     public DatosRespuestaTopicoActualizado actualizarTopico(DatosActualizarTopico datos){
-        validadores.forEach(v -> v.validarActualizacion(datos));
+        validaciones.forEach(v -> v.validarActualizacion(datos));
         var topico = topicoRepository.findById(datos.id())
             .orElseThrow(() -> new ValidacionException("Tópico no encontrado con id: " + datos.id()));
         var avisos = actualizarDatos(datos, topico);
         topicoRepository.save(topico); 
         return new DatosRespuestaTopicoActualizado(topico, avisos);
     }
-    /**
-    * METODO UTILIZADO PARA LA ELIMINACION LOGICA DE UN TOPICO
-    * public void desactivarTopico(Long id){
-    *       var topico = topicoRepository.getReferenceById(id);      
-    *       topico.desactivarTopico();    
-    * }
-    */
     
     public void eliminarTopico(Long id){
         topicoRepository.deleteById(id);       
     }
     
-    public DatosRespuestaTopico topicosPorFecha(){
+    public List<DatosRespuestaTopico> topicosPorFecha(){
         var topicos = topicoRepository.findTop10ByOrderByFechaDeCreacionAsc();
-        return new DatosRespuestaTopico(topicos);
+        var respuesta = topicos.stream()
+            .map(DatosRespuestaTopico::new)
+            .toList();
+        return respuesta;
     }
     
 
     public List<DatosRespuestaTopico> topicosPorCursoyAño(DatosBusquedaTopico datosBusquedaTopico){
-        var respuesta = topicoRepository.buscarTopicosPorCursoYAño(datosBusquedaTopico.nombreCurso(), datosBusquedaTopico.añoTopico());
+        var topicos = topicoRepository.buscarTopicosPorCursoYAño(
+                datosBusquedaTopico.nombreCurso(), 
+                datosBusquedaTopico.añoTopico()
+        );
+        var respuesta = topicos.stream()
+                .map(DatosRespuestaTopico::new)
+                .collect(Collectors.toList());
         return respuesta;
     }
     
@@ -150,4 +148,24 @@ public class TopicoService {
         }
         return avisos;
     }
+    
+    /**
+    *
+    * METODO UTILIZADO PARA LA ELIMINACION LOGICA DE UN TOPICO
+    * 
+    *   public void desactivarTopico(Long id){
+    *        var topico = topicoRepository.getReferenceById(id);      
+    *           topico.desactivarTopico();    
+    *   }
+    * 
+    * METODO PARA LISTAR TODOS LOS TOPICOS SIN PAGEABLE
+    *
+    *    public List<DatosMostrarTopico> listarTodosLosTopicos(){
+    *       var topicos = topicoRepository.findAll();
+    *        var respuesta = topicos.stream()
+    *                .map(DatosMostrarTopico::new)
+    *                .toList();
+    *        return respuesta;
+    *    }
+    */
 }

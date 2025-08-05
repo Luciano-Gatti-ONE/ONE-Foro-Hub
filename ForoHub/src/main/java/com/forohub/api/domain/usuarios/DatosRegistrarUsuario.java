@@ -1,5 +1,10 @@
 package com.forohub.api.domain.usuarios;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 /**
  *
  * @author usuario
@@ -10,7 +15,7 @@ public record DatosRegistrarUsuario(
 
     @Email(message = "El email debe tener un formato válido")
     @NotBlank(message = "El email es obligatorio")
-    String email,
+    String correoElectronico,
 
     @NotBlank(message = "La contraseña es obligatoria")
     @Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres")
@@ -18,7 +23,7 @@ public record DatosRegistrarUsuario(
         regexp = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]+$",
         message = "La contraseña debe tener al menos una mayúscula, un número y un carácter especial"
     )
-    String password      
+    String contrasena      
 ) {
 
 }
