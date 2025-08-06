@@ -1,15 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Record.java to edit this template
- */
-
 package com.forohub.api.domain.respuesta;
+
+import java.time.LocalDateTime;
 
 /**
  *
  * @author usuario
  */
 public record DatosDetalleRespuesta(
+        Long id,
         String mensaje,
         LocalDateTime fechaCreacion,
         String nombreAutor,
@@ -17,8 +15,9 @@ public record DatosDetalleRespuesta(
 ) {
     public DatosDetalleRespuesta(Respuesta respuesta){
         this(
+                respuesta.getId(),
                 respuesta.getMensaje(),
-                respuesta.getFechaCreacion,
+                respuesta.getFechaCreacion(),
                 respuesta.getAutor().getNombre(),
                 respuesta.getTopico().getTitulo()
         );
