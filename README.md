@@ -1,77 +1,101 @@
-# ForoHub API
 
-API RESTful para la gestión de un foro educativo donde los usuarios pueden crear cursos, tópicos y respuestas.
+# 📣 ForoHub API
 
-## Tabla de Contenidos
+Bienvenido a **ForoHub API**, una RESTful API construida con Java y Spring Boot que permite la creación, gestión y visualización de foros temáticos. Este backend está diseñado para ser utilizado con clientes frontend y está preparado para producción, con seguridad JWT, validaciones, paginación y documentación integrada.
 
-- [Descripción](#descripción)
-- [Tecnologías](#tecnologías)
-- [Características](#características)
-- [Instalación](#instalación)
-- [Configuración](#configuración)
-- [Uso](#uso)
-- [Estructura del Proyecto](#estructura-del-proyecto)
-- [Autores](#autores)
+---
 
-## Descripción
+## 🚀 Tecnologías utilizadas
 
-ForoHub API es un backend desarrollado en Java con Spring Boot que permite gestionar usuarios, cursos, tópicos (preguntas) y respuestas dentro de un foro educativo. Implementa autenticación con JWT y controla los accesos mediante roles.
+- ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
+- ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
+- ![Maven](https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apache-maven&logoColor=white)
+- ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+- ![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)
+- ![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black)
+- ![Lombok](https://img.shields.io/badge/Lombok-A51C30?style=for-the-badge&logo=lombok&logoColor=white)
 
-## Tecnologías
+---
 
-- Java 17
-- Spring Boot
-- Spring Security con JWT
-- Hibernate / JPA
-- MySQL (o cualquier base de datos relacional compatible)
-- Maven
-- Lombok
+## 📂 Estructura del proyecto
 
-## Características
+```bash
+src/
+├── main/
+│   ├── java/com/forohub/api
+│   │   ├── controller/       # Controladores REST
+│   │   ├── dto/              # Clases DTO para requests/responses
+│   │   ├── entity/           # Entidades JPA
+│   │   ├── repository/       # Interfaces de acceso a datos
+│   │   ├── security/         # Configuración de seguridad JWT
+│   │   └── service/          # Lógica de negocio
+│   └── resources/
+│       ├── application.properties
+│       └── static/
+└── test/                     # Pruebas unitarias y de integración
+```
 
-- Registro, autenticación y actualización de usuarios con seguridad.
-- Gestión de cursos con categorías.
-- Creación y consulta de tópicos con estados (sin respuesta, en curso, resuelto).
-- Respuestas a tópicos con opción para marcar solución.
-- Paginación y búsqueda avanzada.
-- Validaciones personalizadas y manejo centralizado de errores.
-- Documentación Swagger (OpenAPI).
+---
 
-## Instalación
+## 🔐 Autenticación y Seguridad
 
-1. Clonar el repositorio:
-   ```bash
-   git clone https://github.com/tu_usuario/forohub-api.git
-   cd forohub-api
-   ```
+- Login y registro de usuarios con validación.
+- Generación y verificación de tokens JWT.
+- Filtros personalizados para autorización.
+- Protección de endpoints: solo los usuarios autenticados pueden acceder a recursos privados.
 
-2. Configurar la base de datos en `application.properties` o `application.yml`:
-   ```properties
-   spring.datasource.url=jdbc:mysql://localhost:3306/forohub
-   spring.datasource.username=usuario
-   spring.datasource.password=contraseña
-   spring.jpa.hibernate.ddl-auto=update
-   ```
+---
 
-3. Configurar la clave secreta para JWT en el archivo de propiedades:
-   ```properties
-   api.security.secret=tu_clave_secreta
-   ```
+## 📄 Documentación
 
-4. Ejecutar la aplicación:
-   ```bash
-   mvn spring-boot:run
-   ```
+Accedé a la documentación completa de la API generada con Swagger en:
 
-## Uso
+```
+/swagger-ui/index.html
+```
 
-- La API expone endpoints para manejar usuarios, cursos, tópicos y respuestas.
-- La autenticación se realiza mediante JWT en el header `Authorization: Bearer <token>`.
-- Endpoints públicos:
-  - `POST /auth/login` para login.
-  - `POST /auth/registrar` para registrar usuario nuevo.
-- Endpoints protegidos requieren token válido.
+---
 
+## ▶️ Endpoints destacados
+
+| Método | Endpoint              | Descripción                     |
+|--------|------------------------|----------------------------------|
+| POST   | /auth/login           | Login y obtención de JWT         |
+| POST   | /auth/registrar       | Registro de nuevos usuarios      |
+| GET    | /topicos              | Listado de tópicos               |
+| POST   | /topicos              | Crear un nuevo tópico            |
+| PUT    | /topicos              | Actualizar un tópico existente   |
+| DELETE | /topicos/{id}         | Eliminar un tópico               |
+| GET    | /respuestas/{topico} | Listar respuestas por tópico     |
+
+---
+
+## ⚙️ Requisitos
+
+- Java 17+
+- Maven 3+
+- MySQL o cualquier otra base de datos compatible con JPA
+
+---
+
+## 📦 Instalación y ejecución
+
+```bash
+# Clonar el repositorio
+git clone https://github.com/tuusuario/forohub-api.git
+cd forohub-api
+
+# Configurar credenciales en application.properties
+
+# Compilar y ejecutar
+mvn spring-boot:run
+```
+
+---
+
+## 🧑‍💻 Autor
+
+Desarrollado por **Luciano Gatti Flekenstein**.
 ## Autores
 
 - Luciano Emmanuel Gatti Flekenstein
