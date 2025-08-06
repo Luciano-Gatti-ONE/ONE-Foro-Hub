@@ -30,6 +30,8 @@ public class Respuesta {
     private Long id;
 
     private String mensaje;
+    
+    private Boolean activo;
 
     @ManyToOne
     @JoinColumn(name = "topico_id")
@@ -42,4 +44,13 @@ public class Respuesta {
     private Usuario autor;
 
     private Boolean solucion;
+    
+    public Respuesta(DatosCreacionRespuesta datos, Usuario autor, Topico topico){
+        this.mensaje = datos.mensaje();
+        this.fechaCreacion = LocalDateTime.now();
+        this.topico = topico;
+        this.autor = autor;
+        this.solucion = false;
+        this.activo = true;
+    }
 }

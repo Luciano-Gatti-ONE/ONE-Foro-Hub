@@ -17,7 +17,7 @@ public class RespuestaController {
     
     @PostMapping
     @Transactional
-    public ResponseEntity<DatosRespuestaTopico> crearTopico(@RequestBody @Valid DatosCreacionRespuesta datosCreacionRespuesta,
+    public ResponseEntity<DatosDetalleRespuesta> crearRespuesta(@RequestBody @Valid DatosCreacionRespuesta datosCreacionRespuesta,
                                                                 UriComponentsBuilder uriComponentsBuilder) {
 
         var detalleCreacion = respuestaService.crearRespuesta(datosCreacionRespuesta);
@@ -38,7 +38,7 @@ public class RespuestaController {
     
     @PutMapping
     @Transactional
-    public ResponseEntity actualizarRespuesta(@RequestBody @Valid DatosActualizarRespuesta datosActualizarRespuesta) {
+    public ResponseEntity<DatosDetalleRespuestaActualizada> actualizarRespuesta(@RequestBody @Valid DatosActualizarRespuesta datosActualizarRespuesta) {
         var respuesta = respuestaService.actualizarRespuesta(datosActualizarRespuesta);
         return ResponseEntity.ok(respuesta);
     }
@@ -46,8 +46,8 @@ public class RespuestaController {
     // DELETE LOGICO
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity eliminarTopico(@PathVariable Long id) {
-        topicoService.eliminarTopico(id);
+    public ResponseEntity eliminarRespuesta(@PathVariable Long id) {
+        respuestaService.desactivarRespuesta(id);
         return ResponseEntity.noContent().build();
     }
 }
