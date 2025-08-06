@@ -6,9 +6,19 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 /**
- *
- * @author usuario
+ * DTO para registrar un nuevo usuario en el sistema.
+ * Contiene validaciones para asegurar que los datos obligatorios estén presentes
+ * y que la contraseña cumpla con los requisitos de seguridad mínimos.
+ * 
+ * Validaciones:
+ * - Nombre obligatorio (no puede estar vacío).
+ * - Email obligatorio y con formato válido.
+ * - Contraseña obligatoria, con mínimo 8 caracteres, al menos una mayúscula,
+ *   un número y un carácter especial.
+ * 
+ * @author Luciano Emmanuel Gatti Flekenstein
  */
+
 public record DatosRegistrarUsuario(
     @NotBlank(message = "El nombre es obligatorio")
     String nombre,
@@ -24,6 +34,4 @@ public record DatosRegistrarUsuario(
         message = "La contraseña debe tener al menos una mayúscula, un número y un carácter especial"
     )
     String contrasena      
-) {
-
-}
+) {}

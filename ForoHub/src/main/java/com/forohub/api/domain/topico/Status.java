@@ -1,8 +1,15 @@
 package com.forohub.api.domain.topico;
 
 /**
- * Enum que representa el estado de un tópico.
- * Puede estar sin respuesta, en curso o resuelto.
+ * Enum que representa los posibles estados de un tópico en el foro.
+ * 
+ * Los estados disponibles son:
+ * - SIN_RESPUESTAS: El tópico no tiene respuestas aún.
+ * - EN_CURSO: El tópico está activo y en discusión.
+ * - RESUELTO: El tópico ha sido resuelto o cerrado.
+ * 
+ * Cada estado tiene una descripción asociada que se puede utilizar para mostrar
+ * un texto legible en la interfaz de usuario.
  * 
  * @author Luciano Emmanuel Gatti Flekenstein
  */

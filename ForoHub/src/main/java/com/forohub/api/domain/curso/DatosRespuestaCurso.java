@@ -1,14 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Record.java to edit this template
- */
-
 package com.forohub.api.domain.curso;
 
 /**
- *
- * @author usuario
+ * DTO inmutable que representa la respuesta con los datos de un curso.
+ * 
+ * Se utiliza para enviar información del curso en respuestas de la API.
+ * 
+ * Contiene el ID, nombre y la descripción de la categoría del curso.
+ * 
+ * Incluye un constructor que facilita la conversión desde la entidad Curso.
+ * 
+ * @author Luciano Emmanuel Gatti Flekenstein
  */
+
 public record DatosRespuestaCurso(
         Long id, 
         String nombre, 

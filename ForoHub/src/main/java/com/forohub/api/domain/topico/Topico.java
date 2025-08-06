@@ -15,11 +15,19 @@ import com.forohub.api.domain.respuesta.Respuesta;
 
 /**
  * Representa un tópico o pregunta dentro del sistema.
- * Contiene un título, un mensaje, una fecha de creación, el estado del tópico,
- * y las relaciones con el autor, el curso al que pertenece y las respuestas asociadas.
+ * 
+ * Contiene un título, un mensaje, la fecha de creación, el estado actual del tópico,
+ * y las relaciones con el autor que lo creó, el curso al que pertenece y las respuestas asociadas.
+ * 
+ * La entidad está mapeada para persistirse en la tabla "topicos".
+ * 
+ * El atributo `status` indica si el tópico está sin respuestas, en curso o resuelto.
+ * 
+ * Se contempla la posibilidad de realizar borrado lógico mediante el campo `activo` (comentado actualmente).
  * 
  * @author Luciano Emmanuel Gatti Flekenstein
  */
+
 @Entity(name = "Topico")
 @Table(name = "topicos")
 @Getter
@@ -31,12 +39,15 @@ public class Topico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String titulo;
+
     private String mensaje;
+
     private LocalDateTime fechaDeCreacion;
-    
-    //SE UTILIZA EN EL CASO DE ELIMINACION LOGICA
-    //private Boolean activo;
+
+    // Atributo para borrado lógico, actualmente no utilizado
+    // private Boolean activo;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -51,7 +62,15 @@ public class Topico {
 
     @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Respuesta> respuestas;
-    
+
+    /**
+     * Constructor para crear un tópico nuevo con estado inicial SIN_RESPUESTAS y fecha actual.
+     * 
+     * @param titulo título del tópico
+     * @param mensaje contenido o descripción del tópico
+     * @param autor usuario que crea el tópico
+     * @param curso curso al que está asociado el tópico
+     */
     public Topico(String titulo, String mensaje, Usuario autor, Curso curso) {
         this.titulo = titulo;
         this.mensaje = mensaje;
@@ -60,12 +79,13 @@ public class Topico {
         this.autor = autor;
         this.curso = curso;
     }
-    
+
     /**
-    * SE UTILIZA EN EL CASO DE ELIMINACION LOGICA
-    * public void desactivarTopico() {   
-    *       this.activo = false;
-    * }
-    */
-    
+     * Método para realizar borrado lógico del tópico.
+     * Actualmente está comentado ya que no se utiliza.
+     * 
+     * public void desactivarTopico() {
+     *      this.activo = false;
+     * }
+     */
 }

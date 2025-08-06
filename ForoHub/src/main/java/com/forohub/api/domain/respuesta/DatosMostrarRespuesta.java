@@ -3,8 +3,13 @@ package com.forohub.api.domain.respuesta;
 import java.time.LocalDateTime;
 
 /**
- *
- * @author usuario
+ * DTO para mostrar información básica de una respuesta en el foro.
+ * Incluye el mensaje, la fecha de creación, el nombre del tópico asociado
+ * y el nombre del autor de la respuesta.
+ * 
+ * Se utiliza para listar respuestas en la interfaz o API de forma resumida.
+ * 
+ * @author Luciano Emmanuel Gatti Flekenstein
  */
 
 public record DatosMostrarRespuesta(

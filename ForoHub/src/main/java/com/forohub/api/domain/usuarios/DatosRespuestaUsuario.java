@@ -1,9 +1,14 @@
 package com.forohub.api.domain.usuarios;
 
 /**
- *
- * @author usuario
+ * DTO para enviar datos de respuesta sobre un usuario.
+ * Contiene el ID, nombre y correo electrónico del usuario.
+ * 
+ * Se puede construir a partir de una entidad Usuario.
+ * 
+ * @author Luciano Emmanuel Gatti Flekenstein
  */
+
 public record DatosRespuestaUsuario(
         Long id,
         String nombre,

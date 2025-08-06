@@ -3,9 +3,14 @@ package com.forohub.api.domain.topico;
 import java.time.LocalDateTime;
 
 /**
- *
- * @author usuario
+ * DTO que representa la respuesta con datos resumidos de un tópico.
+ * 
+ * Contiene información básica del tópico junto con datos relevantes
+ * del autor, curso y categoría asociada.
+ * 
+ * @author Luciano Emmanuel Gatti Flekenstein
  */
+
 public record DatosRespuestaTopico(
     Long id,
     String titulo,

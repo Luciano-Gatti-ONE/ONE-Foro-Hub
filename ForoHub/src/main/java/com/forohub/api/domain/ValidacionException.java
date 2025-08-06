@@ -24,6 +24,7 @@ package com.forohub.api.domain;
  */
 
 public class ValidacionException extends RuntimeException {
+    
     /**
      * Crea una nueva instancia de ValidacionException con un mensaje específico.
      *

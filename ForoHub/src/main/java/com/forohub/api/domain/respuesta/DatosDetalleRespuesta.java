@@ -3,9 +3,14 @@ package com.forohub.api.domain.respuesta;
 import java.time.LocalDateTime;
 
 /**
- *
- * @author usuario
+ * DTO que representa el detalle completo de una respuesta en el foro.
+ * Incluye el ID, mensaje, fecha de creación, nombre del autor y título del tópico asociado.
+ * 
+ * Se utiliza para enviar información detallada sobre una respuesta en las APIs REST.
+ * 
+ * @author Luciano Emmanuel Gatti Flekenstein
  */
+
 public record DatosDetalleRespuesta(
         Long id,
         String mensaje,

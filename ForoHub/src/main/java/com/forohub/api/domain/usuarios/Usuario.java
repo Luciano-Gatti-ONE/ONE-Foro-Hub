@@ -19,12 +19,16 @@ import com.forohub.api.domain.usuarios.DatosRegistrarUsuario;
 
 /**
  * Representa un usuario del sistema.
- * Implementa la interfaz UserDetails de Spring Security para integrarse con el sistema de autenticación.
+ * Implementa la interfaz UserDetails de Spring Security para integrarse con el sistema de autenticación y autorización.
  * 
- * Cada usuario puede tener múltiples perfiles asociados.
+ * Un usuario tiene un nombre, correo electrónico, contraseña y estado de activación.
+ * Además, puede tener múltiples perfiles asociados y puede ser autor de múltiples tópicos.
+ * 
+ * Métodos de UserDetails proporcionan información sobre el estado de la cuenta para seguridad.
  * 
  * @author Luciano Emmanuel Gatti Flekenstein
  */
+
 @Table(name = "usuarios")
 @Entity(name = "Usuario")
 @Getter
@@ -76,24 +80,27 @@ public class Usuario implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return true;  // Aquí podrías agregar lógica real si implementas expiración de cuentas
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return true;  // Aquí podrías agregar lógica real si implementas bloqueo de cuentas
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return true;  // Aquí podrías agregar lógica real si implementas expiración de credenciales
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return activo != null && activo;  // Retorna si el usuario está activo o no
     }
     
+    /**
+     * Desactiva al usuario, estableciendo su estado como inactivo.
+     */
     public void desactivarUsuario() {
         this.activo = false;
     }

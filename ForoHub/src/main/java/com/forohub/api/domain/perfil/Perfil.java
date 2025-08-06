@@ -8,11 +8,15 @@ import lombok.AllArgsConstructor;
 import com.forohub.api.domain.usuarios.Usuario;
 
 /**
-* Representa un perfil dentro del sistema.
-* Contiene un identificador único y un nombre descriptivo del perfil.
-* 
-* @author Luciano Emmanuel Gatti Flekenstein
-*/
+ * Representa un perfil de usuario dentro del sistema.
+ * 
+ * Contiene un identificador único, un nombre descriptivo del perfil
+ * y la asociación al usuario al que pertenece.
+ * 
+ * Esta entidad permite definir diferentes perfiles o roles que un usuario puede tener.
+ * 
+ * @author Luciano Emmanuel Gatti Flekenstein
+ */
 
 @Entity(name = "Perfil")
 @Table(name = "perfiles")

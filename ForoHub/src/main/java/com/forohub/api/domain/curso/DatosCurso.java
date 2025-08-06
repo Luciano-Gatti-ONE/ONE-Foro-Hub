@@ -1,14 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Record.java to edit this template
- */
-
 package com.forohub.api.domain.curso;
 
 /**
- *
- * @author usuario
+ * DTO inmutable que representa los datos de un curso para mostrar o transferir.
+ * 
+ * Contiene el identificador, nombre y la categoría (como texto descriptivo) del curso.
+ * 
+ * Proporciona un constructor que recibe una entidad Curso para facilitar la conversión.
+ * 
+ * @author Luciano Emmanuel Gatti Flekenstein
  */
+
 public record DatosCurso(
         Long id,
         String nombre,

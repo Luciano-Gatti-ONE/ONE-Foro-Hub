@@ -10,11 +10,14 @@ import com.forohub.api.domain.topico.Topico;
 import java.util.List;
 
 /**
-* Representa un curso dentro del sistema.
-* Cada curso tiene una única categoría, representada como un valor enum.
-*
-* @author Luciano Emmanuel Gatti Flekenstein
-*/
+ * Representa un curso dentro del sistema.
+ * Cada curso tiene un identificador único, un nombre y una categoría.
+ * La categoría está representada como un valor enumerado (enum) `Categoria`.
+ * 
+ * También mantiene la lista de tópicos asociados a este curso.
+ * 
+ * @author Luciano Emmanuel Gatti Flekenstein
+ */
 
 @Entity(name = "Curso")
 @Table(name = "cursos")
@@ -37,6 +40,10 @@ public class Curso {
     
     public Curso(DatosCreacionCurso datos) {
         this.nombre = datos.nombre();
-        this.categoria = Categoria.valueOf(datos.categoria().toUpperCase()); // Suponiendo que sea un enum
+        this.categoria = Categoria.valueOf(normalizar(datos.categoria()));
+    }
+
+    private String normalizar(String dato){
+        return dato.trim().replace(" ", "_").toUpperCase();
     }
 }

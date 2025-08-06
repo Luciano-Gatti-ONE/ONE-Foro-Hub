@@ -12,12 +12,16 @@ import com.forohub.api.domain.topico.Topico;
 import com.forohub.api.domain.usuarios.Usuario;
 
 /**
-* Representa una respuesta a un tópico dentro del sistema.
-* Contiene el mensaje, el tópico al que pertenece, la fecha de creación,
-* el autor de la respuesta y si la respuesta es la solución al tópico.
-* 
-* @author Luciano Emmanuel Gatti Flekenstein
-*/
+ * Representa una respuesta a un tópico dentro del sistema.
+ * Contiene el mensaje, el tópico asociado, la fecha de creación,
+ * el autor de la respuesta, un indicador de si la respuesta está activa,
+ * y si dicha respuesta ha sido marcada como solución del tópico.
+ * 
+ * Proporciona constructores para creación y métodos para desactivar
+ * la respuesta y marcarla como solución.
+ * 
+ * @author Luciano Emmanuel Gatti Flekenstein
+ */
 
 @Entity(name = "Respuesta")
 @Table(name = "respuestas")
@@ -56,11 +60,17 @@ public class Respuesta {
         this.activo = true;
     }
     
+    /**
+     * Marca la respuesta como inactiva (borrado lógico).
+     */
     public void desactivarRespuesta(){
         this.activo = false;
     }
     
+    /**
+     * Marca esta respuesta como la solución del tópico.
+     */
     public void marcarSolucion(){
-        this.activo = true;
+        this.solucion = true;
     }
 }

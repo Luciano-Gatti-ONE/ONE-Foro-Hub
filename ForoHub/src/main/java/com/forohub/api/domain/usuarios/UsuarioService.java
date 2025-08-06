@@ -20,20 +20,30 @@ import com.forohub.api.domain.usuarios.UsuarioRepository;
 import com.forohub.api.domain.ValidacionException;
 
 /**
- *
- * @author usuario
+ * Servicio encargado de la gestión de usuarios en el sistema.
+ * Proporciona operaciones para registrar, listar, consultar, actualizar y desactivar usuarios.
+ * También maneja la validación y codificación de contraseñas.
+ * 
+ * @author Luciano Emmanuel Gatti Flekenstein
  */
 
 @Service
 public class UsuarioService {
-    
+
     @Autowired
     private UsuarioRepository usuarioRepository;
-    
+
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
-    
-    public DatosRespuestaUsuario registrarUsuario(DatosRegistrarUsuario datos){
+
+    /**
+     * Registra un nuevo usuario en el sistema.
+     * Codifica la contraseña antes de persistir el usuario.
+     * 
+     * @param datos datos necesarios para registrar el usuario
+     * @return datos del usuario registrado
+     */
+    public DatosRespuestaUsuario registrarUsuario(DatosRegistrarUsuario datos) {
         String contrasenaHasheada = passwordEncoder.encode(datos.contrasena());
         var usuario = new Usuario(
             datos.nombre(),
@@ -43,38 +53,71 @@ public class UsuarioService {
         usuarioRepository.save(usuario);
         return new DatosRespuestaUsuario(usuario);
     }
-    
-    public List<DatosMostrarUsuario> listarTodosLosUsuarios(){
+
+    /**
+     * Lista todos los usuarios activos del sistema.
+     * 
+     * @return lista de usuarios activos
+     */
+    public List<DatosMostrarUsuario> listarTodosLosUsuarios() {
         var usuario = usuarioRepository.findByActivoTrue();
         var respuesta = usuario.stream()
                 .map(DatosMostrarUsuario::new)
                 .toList();
         return respuesta;
     }
-    
-    public DatosMostrarUsuario mostrarUsuarioPorId(Long id){
-        if(!usuarioRepository.findByActivoTrueAndId(id).isPresent()){
+
+    /**
+     * Muestra los datos de un usuario activo según su ID.
+     * 
+     * @param id identificador del usuario
+     * @return datos del usuario solicitado
+     * @throws ValidacionException si el usuario no existe o está inactivo
+     */
+    public DatosMostrarUsuario mostrarUsuarioPorId(Long id) {
+        if (!usuarioRepository.findByActivoTrueAndId(id).isPresent()) {
             throw new ValidacionException("El usuario no existe o no se encuentra activo");
         }
         var usuario = usuarioRepository.getReferenceById(id);
         var respuesta = new DatosMostrarUsuario(usuario);
         return respuesta;
     }
-    
-    public DatosRespuestaUsuarioActualizado actualizarUsuario(DatosActualizarUsuario datos){
+
+    /**
+     * Actualiza los datos de un usuario existente.
+     * Realiza validaciones y devuelve un mapa de avisos si algunos campos no fueron modificados.
+     * 
+     * @param datos datos nuevos del usuario
+     * @return objeto con los datos actualizados y posibles avisos
+     * @throws ValidacionException si el usuario no se encuentra
+     */
+    public DatosRespuestaUsuarioActualizado actualizarUsuario(DatosActualizarUsuario datos) {
         var usuario = usuarioRepository.findById(datos.id())
             .orElseThrow(() -> new ValidacionException("No existe un usuario con el id informado"));
         var avisos = actualizarDatos(datos, usuario);
         usuarioRepository.save(usuario); 
         return new DatosRespuestaUsuarioActualizado(usuario, avisos);
     }
-    
-    public void desactivarUsuario(Long id){
+
+    /**
+     * Realiza una eliminación lógica del usuario, marcándolo como inactivo.
+     * 
+     * @param id identificador del usuario
+     */
+    public void desactivarUsuario(Long id) {
         var usuario = usuarioRepository.getReferenceById(id);
         usuario.desactivarUsuario();
     }
-    
-    public Map<String, String> actualizarDatos(DatosActualizarUsuario datos, Usuario usuario){
+
+    /**
+     * Método auxiliar que actualiza los campos del usuario validando su contenido.
+     * Retorna un mapa con los avisos si algún campo no fue actualizado.
+     * 
+     * @param datos datos a actualizar
+     * @param usuario entidad a modificar
+     * @return mapa con avisos sobre los campos no modificados
+     */
+    public Map<String, String> actualizarDatos(DatosActualizarUsuario datos, Usuario usuario) {
         Map<String, String> avisos = new HashMap<>();
 
         if (datos.nombre() != null && !datos.nombre().isBlank()) {
@@ -88,7 +131,7 @@ public class UsuarioService {
         } else {
             avisos.put("Correo Electronico", "El correo no fue actualizado porque está vacío o en blanco.");
         }
-        
+
         if (datos.contrasena() != null && !datos.contrasena().isBlank()) {
             if (datos.contrasena().length() >= 8
                 && datos.contrasena().matches("^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]+$")) {
@@ -99,7 +142,7 @@ public class UsuarioService {
         } else {
             avisos.put("Contraseña", "La contraseña no fue actualizada porque está vacía o en blanco.");
         }
-        
+
         return avisos;
     }
 }

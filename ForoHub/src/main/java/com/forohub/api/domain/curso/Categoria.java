@@ -1,8 +1,13 @@
 package com.forohub.api.domain.curso;
 
 /**
- * Enum que representa las categorías disponibles para un curso.
- * Cada categoría tiene una descripción asociada que puede contener espacios y mayúsculas.
+ * Enum que representa las categorías disponibles para un curso dentro del sistema.
+ * 
+ * Cada categoría está asociada a una descripción legible que puede incluir espacios y mayúsculas,
+ * pensada para mostrarla directamente en interfaces de usuario, reportes o documentación.
+ * 
+ * Este enum facilita la gestión y validación de categorías permitidas para los cursos,
+ * asegurando consistencia en los valores utilizados a lo largo de la aplicación.
  * 
  * @author Luciano Emmanuel Gatti Flekenstein
  */
