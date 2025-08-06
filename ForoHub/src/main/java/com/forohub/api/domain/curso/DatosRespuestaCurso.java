@@ -9,8 +9,16 @@ package com.forohub.api.domain.curso;
  *
  * @author usuario
  */
-public record DatosRespuestaCurso(Long id, String nombre, String categoria) {
+public record DatosRespuestaCurso(
+        Long id, 
+        String nombre, 
+        String categoria
+) {
     public DatosRespuestaCurso(Curso curso) {
-        this(curso.getId(), curso.getNombre(), curso.getCategoria().getDescripcion());
+        this(
+                curso.getId(), 
+                curso.getNombre(), 
+                curso.getCategoria().getDescripcion()
+        );
     }
 }
