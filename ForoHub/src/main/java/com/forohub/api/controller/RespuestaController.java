@@ -3,6 +3,28 @@ package com.forohub.api.controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.http.ResponseEntity;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
+import jakarta.validation.Valid;
+
+import com.forohub.api.domain.respuesta.RespuestaService;
+import com.forohub.api.domain.respuesta.DatosDetalleRespuesta;
+import com.forohub.api.domain.respuesta.DatosCreacionRespuesta;
+import com.forohub.api.domain.respuesta.DatosMostrarRespuesta;
+import com.forohub.api.domain.respuesta.DatosDetalleRespuestaActualizada;
+import com.forohub.api.domain.respuesta.DatosActualizarRespuesta;
+
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
+import java.util.List;
+
 /**
  *
  * @author usuario
@@ -10,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @RequestMapping("/respuesta")
+@SecurityRequirement(name = "bearer-key")
 public class RespuestaController {
     
     @Autowired
@@ -27,13 +50,13 @@ public class RespuestaController {
     }
     
     @GetMapping
-    public ResponseEntity<List<DatosMostrarRespuestas>> listadoRespuestasPorTopico(@PathVariable Long id) {
-        return ResponseEntity.ok(respuestaService.listarRespuestasPorTopico());
+    public ResponseEntity<List<DatosMostrarRespuesta>> listadoRespuestasPorTopico(@PathVariable Long id) {
+        return ResponseEntity.ok(respuestaService.listarRespuestasPorTopico(id));
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<DatosMostrarRespuestas> respuestaPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(respuestaService.mostrarRespuestaPorId(id));
+    public ResponseEntity<DatosMostrarRespuesta> respuestaPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(respuestaService.respuestaPorId(id));
     }
     
     @PutMapping
@@ -41,6 +64,13 @@ public class RespuestaController {
     public ResponseEntity<DatosDetalleRespuestaActualizada> actualizarRespuesta(@RequestBody @Valid DatosActualizarRespuesta datosActualizarRespuesta) {
         var respuesta = respuestaService.actualizarRespuesta(datosActualizarRespuesta);
         return ResponseEntity.ok(respuesta);
+    }
+    
+    @PatchMapping("/solucion/{id}")
+    @Transactional
+    public ResponseEntity marcarRespuestaComoSolucion(@PathVariable Long id) {
+        respuestaService.marcarComoSolucion(id);
+        return ResponseEntity.noContent().build();
     }
 
     // DELETE LOGICO
