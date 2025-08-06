@@ -72,15 +72,6 @@ ForoHub API es un backend desarrollado en Java con Spring Boot que permite gesti
   - `POST /auth/registrar` para registrar usuario nuevo.
 - Endpoints protegidos requieren token válido.
 
-## Estructura del Proyecto
-
-- `com.forohub.api.domain` - Entidades y lógica del dominio.
-- `com.forohub.api.controller` - Controladores REST.
-- `com.forohub.api.repository` - Repositorios JPA.
-- `com.forohub.api.service` - Servicios de negocio.
-- `com.forohub.api.config` - Configuraciones de seguridad y JWT.
-- `com.forohub.api.exception` - Manejo global de excepciones.
-
 ## Autores
 
 - Luciano Emmanuel Gatti Flekenstein
