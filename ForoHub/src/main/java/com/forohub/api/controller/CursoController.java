@@ -19,7 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.forohub.api.domain.curso.Curso;
 import com.forohub.api.domain.curso.DatosCreacionCurso;
 import com.forohub.api.domain.curso.DatosRespuestaCurso;
-import com.forohub.api.domain.curso.CursoRepository;
+import com.forohub.api.domain.curso.CursoService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.net.URI;
 
@@ -29,16 +29,15 @@ import java.net.URI;
 public class CursoController {
     
     @Autowired
-    private CursoRepository cursoRepository;
+    private CursoService cursoService;
 
     @PostMapping
     public ResponseEntity<DatosRespuestaCurso> crearCurso(@RequestBody @Valid DatosCreacionCurso datosCreacionCurso,
                                                            UriComponentsBuilder uriComponentsBuilder) {
-        var curso = cursoRepository.save(new Curso(datosCreacionCurso));
-        var datosRespuestaCurso = new DatosRespuestaCurso(curso.getId(), curso.getNombre(), curso.getCategoria().getDescripcion());
-
-        URI url = uriComponentsBuilder.path("/cursos/{id}").buildAndExpand(curso.getId()).toUri();
-        return ResponseEntity.created(url).body(datosRespuestaCurso);
+        
+        var curso = cursoService.crearCurso(datosCreacionCurso);
+        URI url = uriComponentsBuilder.path("/cursos/{id}").buildAndExpand(curso.id()).toUri();
+        return ResponseEntity.created(url).body(curso);
     }
 
     @GetMapping
@@ -46,14 +45,13 @@ public class CursoController {
                         @RequestParam(defaultValue = "0") int page,
                         @RequestParam(defaultValue = "10") int size,
                         @RequestParam(defaultValue = "nombre") String sort) {
-        Pageable paginacion = PageRequest.of(page, size, Sort.by(sort));
-        return ResponseEntity.ok(cursoRepository.findAll(paginacion).map(DatosRespuestaCurso::new));
+        var cursos = cursoService.listarTodosLosCursos(page, size, sort);
+        return ResponseEntity.ok(cursos);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<DatosRespuestaCurso> buscarCursoPorId(@PathVariable Long id) {
-        var curso = cursoRepository.getReferenceById(id);
-        var datosCurso = new DatosRespuestaCurso(curso.getId(), curso.getNombre(), curso.getCategoria().getDescripcion());
+        var datosCurso = cursoService.buscarCursoPorId(id);
         return ResponseEntity.ok(datosCurso);
     }
 }
