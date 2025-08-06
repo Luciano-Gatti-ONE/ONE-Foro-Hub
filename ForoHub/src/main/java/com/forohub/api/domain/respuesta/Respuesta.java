@@ -2,6 +2,7 @@ package com.forohub.api.domain.respuesta;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
@@ -20,6 +21,7 @@ import com.forohub.api.domain.usuarios.Usuario;
 
 @Entity(name = "Respuesta")
 @Table(name = "respuestas")
+@Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -45,12 +47,20 @@ public class Respuesta {
 
     private Boolean solucion;
     
-    public Respuesta(DatosCreacionRespuesta datos, Usuario autor, Topico topico){
-        this.mensaje = datos.mensaje();
+    public Respuesta(String mensaje, Usuario autor, Topico topico){
+        this.mensaje = mensaje;
         this.fechaCreacion = LocalDateTime.now();
         this.topico = topico;
         this.autor = autor;
         this.solucion = false;
+        this.activo = true;
+    }
+    
+    public void desactivarRespuesta(){
+        this.activo = false;
+    }
+    
+    public void marcarSolucion(){
         this.activo = true;
     }
 }
