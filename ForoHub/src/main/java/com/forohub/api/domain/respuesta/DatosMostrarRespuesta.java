@@ -1,14 +1,24 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Record.java to edit this template
- */
-
 package com.forohub.api.domain.respuesta;
+
+import java.time.LocalDateTime;
 
 /**
  *
  * @author usuario
  */
-public record DatosMostrarRespuesta() {
 
+public record DatosMostrarRespuesta(
+        String mensaje,
+        LocalDateTime fechaCreacion,
+        String nombreTopico,
+        String nombreAutor
+) {
+    public DatosMostrarRespuesta(Respuesta respuesta){
+        this(
+                respuesta.getMensaje(),
+                respuesta.getFechaCreacion(),
+                respuesta.getTopico().getTitulo(),
+                respuesta.getAutor().getNombre()
+        );
+    }
 }
