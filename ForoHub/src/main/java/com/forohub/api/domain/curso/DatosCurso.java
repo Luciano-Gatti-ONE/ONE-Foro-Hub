@@ -15,7 +15,9 @@ public record DatosCurso(
         String categoria
 ) {
     public DatosCurso(Curso curso) {
-        this(curso.getId(), curso.getNombre(), 
+        this(
+                curso.getId(), 
+                curso.getNombre(), 
                 curso.getCategoria().getDescripcion()
         );
     }
