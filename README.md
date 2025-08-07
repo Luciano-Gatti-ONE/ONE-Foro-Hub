@@ -5,15 +5,22 @@ Bienvenido a **ForoHub API**, una RESTful API construida con Java y Spring Boot 
 
 ---
 
-| Tecnologías              | Tecnologías para testing        |
-|-------------------------|--------------------------------|
-| ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white) | ![JUnit](https://img.shields.io/badge/JUnit-25A162?style=for-the-badge&logo=junit5&logoColor=white) |
-| ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white) | ![Mockito](https://img.shields.io/badge/Mockito-202020?style=for-the-badge&logo=mockito&logoColor=white) |
-| ![Maven](https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apache-maven&logoColor=white) | ![Spring Test](https://img.shields.io/badge/Spring_Test-6DB33F?style=for-the-badge&logo=spring&logoColor=white) |
-| ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens) |  |
-| ![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white) |  |
-| ![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black) |  |
-| ![Lombok](https://img.shields.io/badge/Lombok-A51C30?style=for-the-badge&logo=lombok&logoColor=white) |  |
+## 🚀 Tecnologías utilizadas
+
+- ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
+- ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
+- ![Maven](https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apache-maven&logoColor=white)
+- ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+- ![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)
+- ![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black)
+- ![Lombok](https://img.shields.io/badge/Lombok-A51C30?style=for-the-badge&logo=lombok&logoColor=white)
+
+### Tecnologías para testing
+
+- ![JUnit](https://img.shields.io/badge/JUnit-25A162?style=for-the-badge&logo=junit5&logoColor=white)
+- ![Mockito](https://img.shields.io/badge/Mockito-202020?style=for-the-badge&logo=mockito&logoColor=white)
+- ![Spring Test](https://img.shields.io/badge/Spring_Test-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
+
 ---
 
 ## 📁 Estructura del proyecto
