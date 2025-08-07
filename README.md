@@ -63,16 +63,17 @@ Accedé a la documentación completa de la API generada con Swagger en:
 
 ## ▶️ Endpoints destacados
 
-| Método | Endpoint              | Descripción                     |
-|--------|------------------------|----------------------------------|
-| POST   | /auth/login           | Login y obtención de JWT         |
-| POST   | /auth/registrar       | Registro de nuevos usuarios      |
-| GET    | /topicos              | Listado de tópicos               |
-| POST   | /topicos              | Crear un nuevo tópico            |
-| PUT    | /topicos              | Actualizar un tópico existente   |
-| DELETE | /topicos/{id}         | Eliminar un tópico               |
-| GET    | /respuestas/{topico} | Listar respuestas por tópico     |
-
+| Método | Endpoint                   | Descripción                                          |
+|--------|----------------------------|-----------------------------------------------------|
+| POST   | /auth/login                | Autenticar usuario y obtener token JWT              |
+| POST   | /auth/registrar            | Registrar nuevo usuario                              |
+| GET    | /topicos                  | Listar tópicos con paginación y ordenamiento         |
+| GET    | /topicos/por-fecha        | Listar tópicos ordenados por fecha                    |
+| GET    | /topicos/por-curso-y-año  | Listar tópicos filtrados por curso y año (con filtro en body) |
+| GET    | /topicos/{id}             | Obtener detalles de un tópico por su ID               |
+| POST   | /topicos                  | Crear un nuevo tópico                                |
+| PUT    | /topicos                  | Actualizar un tópico existente                       |
+| DELETE | /topicos/{id}             | Eliminar (borrado lógico) un tópico                   |
 ---
 
 ## ⚙️ Requisitos
