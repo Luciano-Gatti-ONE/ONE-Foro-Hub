@@ -28,28 +28,26 @@ Bienvenido a **ForoHub API**, una RESTful API construida con Java y Spring Boot 
 ```bash
 src/
 ├── main/
-│   ├── java/com/forohub/api/
-│   │   ├── domain/                 # Módulos de dominio organizados por entidad y clases de soporte
-│   │   │   ├── curso/             # Entidad, repositorio, DTOs y servicios de Curso
-│   │   │   ├── perfil/            # Entidad, repositorio, DTOs y servicios de Perfil
-│   │   │   ├── topico/            # Entidad, repositorio, DTOs y servicios de Tópico
-│   │   │   ├── respuesta/         # Entidad, repositorio, DTOs y servicios de Respuesta
-│   │   │   ├── usuarios/          # Entidad, repositorio, DTOs y servicios de Usuario
-│   │   │   └── ValidacionException.java  # Excepción personalizada para errores de validación del dominio
-│   │   ├── controller/            # Controladores REST para exponer la API
-│   │   │   ├── AutenticacionController.java
-│   │   │   ├── CursoController.java
-│   │   │   ├── RespuestaController.java
-│   │   │   ├── TopicoController.java
-│   │   │   └── UsuarioController.java
-│   │   ├── infra/                 # Infraestructura y configuraciones
-│   │   │   ├── errores/           # Manejo y definición de errores
-│   │   │   ├── security/          # Configuración de seguridad (JWT, filtros)
-│   │   │   └── springdoc/         # Configuraciones para documentación Swagger/OpenAPI
-│   │   └── ApiApplication.java    # Clase principal para iniciar la aplicación
-│   └── resources/
-│       ├── application.properties
-│       └── static/
+│   └── java/com/forohub/api/
+│       ├── domain/                 # Módulos de dominio organizados por entidad y clases de soporte
+│       │   ├── curso/             # Entidad, repositorio, DTOs y servicios de Curso
+│       │   ├── perfil/            # Entidad, repositorio, DTOs y servicios de Perfil
+│       │   ├── topico/            # Entidad, repositorio, DTOs y servicios de Tópico
+│       │   ├── respuesta/         # Entidad, repositorio, DTOs y servicios de Respuesta
+│       │   ├── usuarios/          # Entidad, repositorio, DTOs y servicios de Usuario
+│       │   └── ValidacionException.java  # Excepción personalizada para errores de validación del dominio
+│       ├── controller/            # Controladores REST para exponer la API
+│       │   ├── AutenticacionController.java
+│       │   ├── CursoController.java
+│       │   ├── RespuestaController.java
+│       │   ├── TopicoController.java
+│       │   └── UsuarioController.java
+│       ├── infra/                 # Infraestructura y configuraciones
+│       │   ├── errores/           # Manejo y definición de errores
+│       │   ├── security/          # Configuración de seguridad (JWT, filtros)
+│       │   └── springdoc/         # Configuraciones para documentación Swagger/OpenAPI
+│       └── ApiApplication.java    # Clase principal para iniciar la aplicación
+│  
 └── test/                           # Pruebas unitarias y de integración
     ├── controller/                 # Tests para controladores REST (ej. TopicoControllerTest)
     └── domain/
