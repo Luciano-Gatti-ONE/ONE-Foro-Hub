@@ -1,7 +1,7 @@
 
 # 📣 ForoHub API
 
-Bienvenido a **ForoHub API**, una RESTful API construida con Java y Spring Boot que permite la creación, gestión y visualización de foros temáticos. Este backend está diseñado para ser utilizado con clientes frontend y está preparado para producción, con seguridad JWT, validaciones, paginación y documentación integrada.
+Bienvenido a ForoHub API, una API REST construida con Java y Spring Boot para un desafío de Oracle Next Education. Permite crear, gestionar y consultar foros temáticos. Este backend, desarrollado durante los cursos de Alura, incluye seguridad JWT, validaciones, paginación y documentación integrada, y está pensado para usarse con clientes frontend.
 
 ---
 
