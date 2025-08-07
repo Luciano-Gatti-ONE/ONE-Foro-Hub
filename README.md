@@ -101,7 +101,5 @@ mvn spring-boot:run
 ## 🧑‍💻 Autor
 
 Desarrollado por **Luciano Gatti Flekenstein**.
-## Autores
 
-- Luciano Emmanuel Gatti Flekenstein
 
