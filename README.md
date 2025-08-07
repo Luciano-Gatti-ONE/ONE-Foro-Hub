@@ -15,6 +15,12 @@ Bienvenido a **ForoHub API**, una RESTful API construida con Java y Spring Boot 
 - ![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black)
 - ![Lombok](https://img.shields.io/badge/Lombok-A51C30?style=for-the-badge&logo=lombok&logoColor=white)
 
+### Tecnologías para testing
+
+- ![JUnit](https://img.shields.io/badge/JUnit-25A162?style=for-the-badge&logo=junit5&logoColor=white)
+- ![Mockito](https://img.shields.io/badge/Mockito-202020?style=for-the-badge&logo=mockito&logoColor=white)
+- ![Spring Test](https://img.shields.io/badge/Spring_Test-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
+
 ---
 
 ## 📂 Estructura del proyecto
@@ -22,17 +28,16 @@ Bienvenido a **ForoHub API**, una RESTful API construida con Java y Spring Boot 
 ```bash
 src/
 ├── main/
-│   ├── java/com/forohub/api
-│   │   ├── controller/       # Controladores REST
-│   │   ├── dto/              # Clases DTO para requests/responses
-│   │   ├── entity/           # Entidades JPA
-│   │   ├── repository/       # Interfaces de acceso a datos
-│   │   ├── security/         # Configuración de seguridad JWT
-│   │   └── service/          # Lógica de negocio
-│   └── resources/
-│       ├── application.properties
-│       └── static/
-└── test/                     # Pruebas unitarias y de integración
+│   └── java/com/forohub/api/
+│       ├── domain/                  # Módulos de dominio (entidades, repositorios, DTOs, servicios) y clases de soporte
+│       ├── controller/              # Controladores REST para exponer la API
+│       ├── infra/                   # Infraestructura y configuraciones (errores, seguridad, documentación)
+│       └── ApiApplication.java      # Clase principal para iniciar la aplicación
+├── resources/                      # Recursos y configuración
+└── test/
+    ├── controller/                 # Pruebas unitarias para controladores (ej. TopicoController)
+    └── domain/
+        └── topico/                 # Pruebas para el repositorio y lógica de dominio de tópico (ej. TopicoRepository)
 ```
 
 ---
