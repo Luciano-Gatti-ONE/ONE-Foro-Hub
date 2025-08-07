@@ -73,7 +73,7 @@ Accedé a la documentación completa de la API generada con Swagger en:
 | GET    | /topicos/{id}             | Obtener detalles de un tópico por su ID               |
 | POST   | /topicos                  | Crear un nuevo tópico                                |
 | PUT    | /topicos                  | Actualizar un tópico existente                       |
-| DELETE | /topicos/{id}             | Eliminar (borrado lógico) un tópico                   |
+| DELETE | /topicos/{id}             | Eliminar un tópico                                   |
 ---
 
 ## ⚙️ Requisitos
