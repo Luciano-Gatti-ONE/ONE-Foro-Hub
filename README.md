@@ -116,5 +116,10 @@ mvn spring-boot:run
 ## 🧑‍💻 Autor
 
 Desarrollado por **Luciano Gatti Flekenstein**.
+Aplicación desarrollada como proyecto educativo para [Oracle Next Education (ONE)](https://www.oracle.com/ar/education/oracle-next-education/), con el fin de demostrar buenas prácticas en consumo de APIs, estructura modular y manejo de datos en Java.
 
+---
 
+## 📄 Licencia
+
+Proyecto de código abierto. ¡Sos libre de usarlo, estudiarlo y adaptarlo para tus propios fines! 😀
